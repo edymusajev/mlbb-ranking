@@ -1,13 +1,16 @@
 "use client";
 
 import {
+  SortingState,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Hero } from "./page";
 import Image from "next/image";
+import { useState } from "react";
 
 const columnHelper = createColumnHelper<Hero>();
 
@@ -21,16 +24,30 @@ const columns = [
     header: () => "Name",
   }),
   columnHelper.accessor("win", {
-    cell: (info) => info.getValue(),
-    header: () => "Win Rate",
+    cell: (info) => `${Math.round(parseFloat(info.getValue()))}%`,
+    header: () => "Win",
+  }),
+  columnHelper.accessor("use", {
+    cell: (info) => `${Math.round(parseFloat(info.getValue()) * 10) / 10}%`,
+    header: () => "Use",
+  }),
+  columnHelper.accessor("ban", {
+    cell: (info) => `${Math.round(parseFloat(info.getValue()))}%`,
+    header: () => "Ban",
   }),
 ];
 
 export const Table = ({ data }: { data: Hero[] }) => {
+  const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
   });
   return (
     <div>
@@ -39,7 +56,12 @@ export const Table = ({ data }: { data: Hero[] }) => {
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th
+                  key={header.id}
+                  {...{
+                    onClick: header.column.getToggleSortingHandler(),
+                  }}
+                >
                   {flexRender(
                     header.column.columnDef.header,
                     header.getContext()
@@ -62,8 +84,8 @@ export const Table = ({ data }: { data: Hero[] }) => {
                           /^\/\//,
                           "https://"
                         )}
-                        width={80}
-                        height={80}
+                        width={60}
+                        height={60}
                         alt=""
                       />
                     ) : (

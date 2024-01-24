@@ -3,9 +3,11 @@ import { Table } from "./table";
 
 export type Hero = {
   id: number;
+  avatar: string;
   name: string;
   win: string;
-  avatar: string;
+  use: string;
+  ban: string;
 };
 
 const getData = async () => {
@@ -32,7 +34,7 @@ export default async function Home() {
   const data = await getData();
   console.log(data);
   return (
-    <main className="p-24">
+    <main className="container p-2">
       <Table data={data} />
     </main>
   );
