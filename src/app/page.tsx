@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { Table } from "./table";
 
-type Hero = {
+export type Hero = {
   id: number;
   name: string;
   win: string;
@@ -32,22 +33,7 @@ export default async function Home() {
   console.log(data);
   return (
     <main className="p-24">
-      {data.map((hero: Hero) => (
-        <div key={hero.id}>
-          <Image
-            src={
-              // remove the // at the start of hero.image string
-              hero.avatar.replace(/^\/\//, "https://")
-            }
-            width={40}
-            height={40}
-            alt={hero.name}
-          />
-          <p>
-            {hero.name} - {hero.win}%
-          </p>
-        </div>
-      ))}
+      <Table data={data} />
     </main>
   );
 }
