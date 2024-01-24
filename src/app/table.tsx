@@ -8,9 +8,10 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Hero } from "./page";
+
 import Image from "next/image";
 import { useState } from "react";
+import { Hero } from "./lib/definitions";
 
 const columnHelper = createColumnHelper<Hero>();
 
@@ -51,7 +52,7 @@ export const Table = ({ data }: { data: Hero[] }) => {
   });
   return (
     <div>
-      <table>
+      <table className="border-collapse w-full">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -75,7 +76,7 @@ export const Table = ({ data }: { data: Hero[] }) => {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td key={cell.id} className="border">
                   {
                     // if avatar render image otherwise render text
                     cell.column.id === "avatar" ? (
