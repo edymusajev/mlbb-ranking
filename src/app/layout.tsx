@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import { NavLinks } from "./nav-links";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,19 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} container p-2 mx-auto`}>
-        <nav>
-          <ul>
-            <li>
-              <Link href="/">All</Link>
-            </li>
-            <li>
-              <Link href="/mythic">Mythic+</Link>
-            </li>
-            <li>
-              <Link href="mythic-glory">Mythic Glory</Link>
-            </li>
-          </ul>
-        </nav>
+        <NavLinks />
         <>{children}</>
       </body>
     </html>
