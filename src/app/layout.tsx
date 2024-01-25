@@ -30,7 +30,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NavLinks />
-          <div className="container">{children}</div>
+          <div className="md:container md:mx-auto">{children}</div>
           <Analytics />
         </ThemeProvider>
       </body>

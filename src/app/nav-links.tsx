@@ -33,12 +33,11 @@ const links = [
 
 export const NavLinks = () => {
   const pathname = usePathname();
-  const style = navigationMenuTriggerStyle();
   return (
-    <header className="mb-4 container py-2 flex justify-between items-center">
+    <header className="mb-4 px-2 md:container mx-auto py-2 flex justify-between items-center">
       <span className="flex items-center space-x-2">
         <SwordsIcon className="w-5 h-5" />
-        <span className="font-semibold antialiased tracking-wider">
+        <span className="font-semibold antialiased tracking-wider whitespace-nowrap">
           ML Meta
         </span>
       </span>

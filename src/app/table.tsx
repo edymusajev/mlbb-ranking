@@ -38,10 +38,10 @@ const columns = [
     cell: (info) => info.getValue(),
     header: () => "Avatar",
   }),
-  columnHelper.accessor("name", {
-    cell: (info) => info.getValue(),
-    header: () => "Name",
-  }),
+  // columnHelper.accessor("name", {
+  //   cell: (info) => info.getValue(),
+  //   header: () => "Name",
+  // }),
   columnHelper.accessor("win", {
     cell: (info) => `${Math.round(parseFloat(info.getValue()))}%`,
     header: () => "Win",
@@ -51,7 +51,7 @@ const columns = [
     header: () => "Use",
   }),
   columnHelper.accessor("ban", {
-    cell: (info) => `${Math.round(parseFloat(info.getValue()))}%`,
+    cell: (info) => `${Math.round(parseFloat(info.getValue()) * 10) / 10}%`,
     header: () => "Ban",
   }),
 ];
@@ -59,6 +59,7 @@ const columns = [
 export const RankingTable = ({ data }: { data: RankData }) => {
   const lastFetched = formatDistanceToNow(new Date(data.date));
   const [sorting, setSorting] = useState<SortingState>([]);
+
   const table = useReactTable({
     data: data.heroes,
     columns,
@@ -71,11 +72,11 @@ export const RankingTable = ({ data }: { data: RankData }) => {
   });
   return (
     <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-muted-foreground mx-2 text-end">
         Last fetched: {lastFetched} ago
       </p>
-      <Table className="w-full">
-        <TableHeader className="sticky top-0 z-10 bg-secondary ">
+      <Table className="overflow-auto">
+        <TableHeader className="sticky top-0 z-10 bg-secondary overflow-auto">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
