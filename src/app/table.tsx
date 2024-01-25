@@ -12,6 +12,9 @@ import {
 import Image from "next/image";
 import { useState } from "react";
 import { Hero } from "./lib/definitions";
+import { RankData } from "./lib/data";
+
+import { formatDistanceToNow, parse } from "date-fns";
 
 const columnHelper = createColumnHelper<Hero>();
 
@@ -38,10 +41,11 @@ const columns = [
   }),
 ];
 
-export const Table = ({ data }: { data: Hero[] }) => {
+export const Table = ({ data }: { data: RankData }) => {
+  const lastFetched = formatDistanceToNow(new Date(data.date));
   const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
-    data,
+    data: data.heroes,
     columns,
     getCoreRowModel: getCoreRowModel(),
     state: {
@@ -52,6 +56,7 @@ export const Table = ({ data }: { data: Hero[] }) => {
   });
   return (
     <div>
+      <p>Last fetched: {lastFetched} ago</p>
       <table className="border-collapse w-full">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

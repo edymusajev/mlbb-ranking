@@ -1,14 +1,14 @@
 import { Hero } from "./definitions";
 
-type Data = {
+export type RankData = {
   heroes: Hero[];
   date: string;
 };
 
-export const getData = async (type: 0 | 1 | 2): Promise<Data> => {
+export const getData = async (type: 0 | 1 | 2): Promise<RankData> => {
   const res = await fetch("https://api.mobilelegends.com/m/hero/getRankData", {
     next: {
-      revalidate: 60 * 15,
+      revalidate: 60 * 60 * 24,
     },
     method: "POST",
     body: JSON.stringify({
