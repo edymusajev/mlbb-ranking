@@ -8,7 +8,7 @@ type Data = {
 export const getData = async (type: 0 | 1 | 2): Promise<Data> => {
   const res = await fetch("https://api.mobilelegends.com/m/hero/getRankData", {
     next: {
-      revalidate: 60,
+      revalidate: 60 * 15,
     },
     method: "POST",
     body: JSON.stringify({
