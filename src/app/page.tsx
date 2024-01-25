@@ -1,4 +1,4 @@
-import { Table } from "./table";
+import { RankingTable } from "./table";
 import { getData } from "./lib/data";
 import { Metadata } from "next";
 
@@ -10,7 +10,7 @@ export default async function Home() {
   const data = await getData(0);
   return (
     <main>
-      <Table data={data} />
+      <RankingTable data={data} />
     </main>
   );
 }

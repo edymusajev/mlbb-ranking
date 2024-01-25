@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import { NavLinks } from "./nav-links";
 import { Analytics } from "@vercel/analytics/react";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +22,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} container p-2 mx-auto`}>
-        <NavLinks />
-        <>{children}</>
-        <Analytics />
+      <body className={`${inter.className}`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NavLinks />
+          <div className="container">{children}</div>
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );

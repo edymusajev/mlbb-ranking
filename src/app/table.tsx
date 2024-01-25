@@ -13,8 +13,17 @@ import Image from "next/image";
 import { useState } from "react";
 import { Hero } from "./lib/definitions";
 import { RankData } from "./lib/data";
-
-import { formatDistanceToNow, parse } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { ChevronUpIcon } from "lucide-react";
 
 const columnHelper = createColumnHelper<Hero>();
 
@@ -41,7 +50,7 @@ const columns = [
   }),
 ];
 
-export const Table = ({ data }: { data: RankData }) => {
+export const RankingTable = ({ data }: { data: RankData }) => {
   const lastFetched = formatDistanceToNow(new Date(data.date));
   const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
@@ -55,14 +64,16 @@ export const Table = ({ data }: { data: RankData }) => {
     getSortedRowModel: getSortedRowModel(),
   });
   return (
-    <div>
-      <p>Last fetched: {lastFetched} ago</p>
-      <table className="border-collapse w-full">
-        <thead className="sticky top-0 z-10 bg-white">
+    <div className="space-y-4">
+      <p className="text-sm text-muted-foreground">
+        Last fetched: {lastFetched} ago
+      </p>
+      <Table className="w-full">
+        <TableHeader className="sticky top-0 z-10 bg-secondary ">
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th
+                <TableHead
                   key={header.id}
                   {...{
                     onClick: header.column.getToggleSortingHandler(),
@@ -72,16 +83,16 @@ export const Table = ({ data }: { data: RankData }) => {
                     header.column.columnDef.header,
                     header.getContext()
                   )}
-                </th>
+                </TableHead>
               ))}
-            </tr>
+            </TableRow>
           ))}
-        </thead>
-        <tbody>
+        </TableHeader>
+        <TableBody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <TableRow key={row.id} className="font-medium">
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="border">
+                <TableCell key={cell.id}>
                   {
                     // if avatar render image otherwise render text
                     cell.column.id === "avatar" ? (
@@ -93,18 +104,22 @@ export const Table = ({ data }: { data: RankData }) => {
                         width={60}
                         height={60}
                         alt=""
+                        className="rounded"
                       />
                     ) : (
                       flexRender(cell.column.columnDef.cell, cell.getContext())
                     )
                   }
-                </td>
+                </TableCell>
               ))}
-            </tr>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
-      <button
+        </TableBody>
+      </Table>
+
+      <Button
+        variant="outline"
+        size="icon"
         className="fixed bottom-4 right-4"
         onClick={() => {
           window.scrollTo({
@@ -113,8 +128,8 @@ export const Table = ({ data }: { data: RankData }) => {
           });
         }}
       >
-        scroll top
-      </button>
+        <ChevronUpIcon className="h-4 w-4" />
+      </Button>
     </div>
   );
 };

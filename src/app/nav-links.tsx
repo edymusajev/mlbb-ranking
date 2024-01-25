@@ -3,6 +3,17 @@
 import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 
 const links = [
   {
@@ -21,22 +32,27 @@ const links = [
 
 export const NavLinks = () => {
   const pathname = usePathname();
+  const style = navigationMenuTriggerStyle();
   return (
-    <nav>
-      <ul>
-        {links.map(({ href, label }) => (
-          <li key={href}>
-            <Link
-              href={href}
-              className={clsx({
-                "font-bold": pathname === href,
-              })}
-            >
-              {label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <header className="mb-4 container py-2 flex justify-between items-center">
+      <span className="font-semibold antialiased tracking-wider">ML Meta</span>
+      <NavigationMenu>
+        <NavigationMenuList>
+          {links.map(({ href, label }) => (
+            <NavigationMenuItem key={href}>
+              <Link href={href} legacyBehavior passHref>
+                <NavigationMenuLink
+                  className={clsx(navigationMenuTriggerStyle(), {
+                    "bg-secondary": pathname === href,
+                  })}
+                >
+                  {label}
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          ))}
+        </NavigationMenuList>
+      </NavigationMenu>
+    </header>
   );
 };
