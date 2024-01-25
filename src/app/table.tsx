@@ -142,11 +142,10 @@ export const RankingTable = ({ data }: { data: RankData }) => {
       <Button
         variant="outline"
         size="icon"
-        className="fixed bottom-4 right-4"
+        className="fixed bottom-8 right-8"
         onClick={() => {
           window.scrollTo({
             top: 0,
-            behavior: "smooth",
           });
         }}
       >
