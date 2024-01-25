@@ -58,7 +58,7 @@ export const Table = ({ data }: { data: RankData }) => {
     <div>
       <p>Last fetched: {lastFetched} ago</p>
       <table className="border-collapse w-full">
-        <thead>
+        <thead className="sticky top-0 z-10 bg-white">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -104,6 +104,17 @@ export const Table = ({ data }: { data: RankData }) => {
           ))}
         </tbody>
       </table>
+      <button
+        className="fixed bottom-4 right-4"
+        onClick={() => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }}
+      >
+        scroll top
+      </button>
     </div>
   );
 };
