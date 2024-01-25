@@ -1,7 +1,15 @@
 import { Hero } from "./definitions";
 
-export const getData = async (type: 0 | 1 | 2) => {
+type Data = {
+  heroes: Hero[];
+  date: string;
+};
+
+export const getData = async (type: 0 | 1 | 2): Promise<Data> => {
   const res = await fetch("https://api.mobilelegends.com/m/hero/getRankData", {
+    next: {
+      revalidate: 60,
+    },
     method: "POST",
     body: JSON.stringify({
       lang: "en",
@@ -15,7 +23,12 @@ export const getData = async (type: 0 | 1 | 2) => {
   const data = await res.json();
 
   // return data.data.data where win rate is ordered from highest to lowest
-  return data.data.data.sort((a: Hero, b: Hero) => {
+  const heroes = data.data.data.sort((a: Hero, b: Hero) => {
     return parseFloat(b.win) - parseFloat(a.win);
   });
+
+  return {
+    heroes,
+    date: res.headers.get("date") ?? "",
+  };
 };

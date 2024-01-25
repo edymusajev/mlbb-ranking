@@ -11,7 +11,7 @@ export default async function Home() {
   const data = await getData(1);
   return (
     <main>
-      <Table data={data} />
+      <Table data={data.heroes} />
     </main>
   );
 }

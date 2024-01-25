@@ -10,7 +10,8 @@ export default async function Home() {
   const data = await getData(0);
   return (
     <main>
-      <Table data={data} />
+      <p>Last fetched: {data.date}</p>
+      <Table data={data.heroes} />
     </main>
   );
 }
