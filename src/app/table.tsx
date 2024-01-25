@@ -73,7 +73,7 @@ export const RankingTable = ({ data }: { data: RankData }) => {
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground mx-2 text-end">
-        Last fetched: {lastFetched} ago
+        Last updated: {lastFetched} ago
       </p>
       <Table className="overflow-auto">
         <TableHeader className="sticky top-0 z-10 bg-secondary overflow-auto">
