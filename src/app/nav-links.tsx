@@ -14,6 +14,7 @@ import {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { SwordsIcon } from "lucide-react";
 
 const links = [
   {
@@ -35,7 +36,13 @@ export const NavLinks = () => {
   const style = navigationMenuTriggerStyle();
   return (
     <header className="mb-4 container py-2 flex justify-between items-center">
-      <span className="font-semibold antialiased tracking-wider">ML Meta</span>
+      <span className="flex items-center space-x-2">
+        <SwordsIcon className="w-5 h-5" />
+        <span className="font-semibold antialiased tracking-wider">
+          ML Meta
+        </span>
+      </span>
+
       <NavigationMenu>
         <NavigationMenuList>
           {links.map(({ href, label }) => (

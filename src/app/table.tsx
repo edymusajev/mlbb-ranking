@@ -23,7 +23,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { ChevronUpIcon } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowDownIcon,
+  ArrowUp,
+  ArrowUpIcon,
+  ChevronUpIcon,
+} from "lucide-react";
 
 const columnHelper = createColumnHelper<Hero>();
 
@@ -74,15 +80,30 @@ export const RankingTable = ({ data }: { data: RankData }) => {
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <TableHead
+                  className="cursor-pointer"
                   key={header.id}
                   {...{
                     onClick: header.column.getToggleSortingHandler(),
                   }}
                 >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
+                  <span className="flex items-center space-x-2">
+                    <span>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                    </span>
+
+                    <span>
+                      {header.column.getIsSorted() === "asc" ? (
+                        <ArrowUp className="h-4 w-4" />
+                      ) : header.column.getIsSorted() === "desc" ? (
+                        <ArrowDownIcon className="h-4 w-4" />
+                      ) : (
+                        <ArrowDownIcon className="h-4 w-4" />
+                      )}
+                    </span>
+                  </span>
                 </TableHead>
               ))}
             </TableRow>
