@@ -101,7 +101,7 @@ export const RankingTable = ({ data }: { data: RankData }) => {
                       ) : header.column.getIsSorted() === "desc" ? (
                         <ArrowDownIcon className="h-4 w-4" />
                       ) : (
-                        <ArrowDownIcon className="h-4 w-4" />
+                        <div className="w-4 h-4" />
                       )}
                     </span>
                   </span>
